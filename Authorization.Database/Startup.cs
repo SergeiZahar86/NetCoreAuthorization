@@ -41,6 +41,7 @@ namespace Authorization.Database
                     builder.RequireClaim(ClaimTypes.Role, "Administrator");
                 });
 
+                // доступ к ресурсам "Manager" предоставлен ролям "Manager" и "Administrator"
                 options.AddPolicy("Manager", builder =>
                 {
                     builder.RequireAssertion(x => x.User.HasClaim(ClaimTypes.Role, "Manager")

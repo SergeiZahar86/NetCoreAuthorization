@@ -23,7 +23,10 @@ namespace Authorization.Database.Data
             var result = userManager.CreateAsync(user, "123qwe").GetAwaiter().GetResult();
             if (result.Succeeded)
             {
-                userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Administrator")).GetAwaiter().GetResult();
+                //userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Administrator"))
+                //    .GetAwaiter().GetResult();
+                userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Manager"))
+                    .GetAwaiter().GetResult();
             }
 
 
