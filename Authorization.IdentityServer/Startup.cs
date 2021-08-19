@@ -72,7 +72,11 @@ namespace Authorization.IdentityServer
                 //        b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
                 //            sql => sql.MigrationsAssembly(migrationsAssembly));
                 //})
+
+
+                // клиенты в виде подключенных приложений
                 .AddInMemoryClients(IdentityServerConfiguration.GetClients())
+                // указание какие именно ресурсы (API) могут обращаться
                 .AddInMemoryApiResources(IdentityServerConfiguration.GetApiResources())
                 .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
                 .AddInMemoryApiScopes(IdentityServerConfiguration.GetApiScopes()) // IdentityServer4 version 4.x.x changes

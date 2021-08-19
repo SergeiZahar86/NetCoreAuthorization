@@ -23,7 +23,7 @@ namespace Authorization.Users.Api.Controllers
         [Route("[action]")]
         public async Task<IActionResult> GetOrders()
         {
-            // retrieve to IdentityServer
+            // обращение к IdentityServer
             var authClient = _httpClientFactory.CreateClient();
             var discoveryDocument = await authClient.GetDiscoveryDocumentAsync("https://localhost:10001");
 
@@ -37,7 +37,7 @@ namespace Authorization.Users.Api.Controllers
                 });
 
 
-            // retrieve to Orders
+            // обращение к Orders
             var ordersClient = _httpClientFactory.CreateClient();
 
             ordersClient.SetBearerToken(tokenResponse.AccessToken);

@@ -7,6 +7,10 @@ namespace Authorization.IdentityServer
 {
     public static class IdentityServerConfiguration
     {
+        /// <summary>
+        /// Получает указанных клиентов (настройка подключенных клиентов)
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<Client> GetClients() =>
         new List<Client>
         {
@@ -16,6 +20,7 @@ namespace Authorization.IdentityServer
                 RequireClientSecret = false,
                 RequireConsent = false,
                 RequirePkce = true,
+                // указание типа авторизации
                 AllowedGrantTypes =  GrantTypes.Code,
                 AllowedCorsOrigins = { "https://localhost:8001" },
                 PostLogoutRedirectUris = { "https://localhost:8001" },
@@ -62,8 +67,9 @@ namespace Authorization.IdentityServer
             {
                 ClientId = "client_id",
                 ClientSecrets = { new Secret("client_secret".ToSha256()) },
-                
+                // указание типа авторизации
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
+                // список scopes, разрешённых именно для данного клиентского приложения
                 AllowedScopes =
                 {
                     "OrdersAPI",
@@ -98,16 +104,25 @@ namespace Authorization.IdentityServer
             }
         };
 
-      
+        /// <summary>
+        /// Получение (указание) API ресурсов которые могут взаимодействовать c 
+        /// сервером авторизации. Название ресурсов указываются в GetClients() =>
+        /// new Client => AllowedScopes
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<ApiResource> GetApiResources()
         {
             yield return new ApiResource("SwaggerAPI");
             yield return new ApiResource("OrdersAPI");
         }
 
+        /// <summary> Запрос утверждений (Scopes) о пользователе </summary>
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
+            // сообщает провайдеру о необходимости возврата утверждения sub (идентификатора
+            // субъекта) в токене идентификации.
             yield return new IdentityResources.OpenId();
+
             yield return new IdentityResources.Profile();
         }
 
