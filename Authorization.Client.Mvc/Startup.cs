@@ -18,13 +18,21 @@ namespace Authorization.Client.Mvc
         {
             services.AddAuthentication(config =>
                 {
+                    // "Cookies"
                     config.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    // "OpenIdConnect"
                     config.DefaultChallengeScheme= OpenIdConnectDefaults.AuthenticationScheme;
                 })
+
+                // "Cookies"
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+                // "OpenIdConnect"
                 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, config =>
                 {
+                    // где будем получать токен (сервер авторизации)
                     config.Authority = "https://localhost:10001";
+                    
+                    // информация о себе как клиенте
                     config.ClientId = "client_id_mvc";
                     config.ClientSecret = "client_secret_mvc";
                     config.SaveTokens = true;
@@ -33,6 +41,7 @@ namespace Authorization.Client.Mvc
                         ValidateAudience = false
                     };
                     
+                    // способ аутентификации
                     config.ResponseType = "code";
 
                     config.Scope.Add("OrdersAPI");

@@ -25,8 +25,15 @@ namespace Authorization.Users.Api.Controllers
         {
             // обращение к IdentityServer
             var authClient = _httpClientFactory.CreateClient();
-            var discoveryDocument = await authClient.GetDiscoveryDocumentAsync("https://localhost:10001");
 
+            // GetDiscoveryDocumentAsync - это из библиотеки IdentityModel
+            // Он читает OpenID конфигурацию на нашем сервере авторизации
+            var discoveryDocument = await authClient.GetDiscoveryDocumentAsync(
+                "https://localhost:10001");
+
+
+            // используем RequestClientCredentialsTokenAsync потому что
+            // у клиента указан AllowedGrantTypes = GrantTypes.ClientCredentials
             var tokenResponse = await authClient.RequestClientCredentialsTokenAsync(
                 new ClientCredentialsTokenRequest
                 {

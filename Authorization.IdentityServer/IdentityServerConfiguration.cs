@@ -41,7 +41,8 @@ namespace Authorization.IdentityServer
                 RequirePkce = true,
                 AllowedGrantTypes =  GrantTypes.Code,
                 AllowedCorsOrigins = { "https://localhost:9001" },
-                RedirectUris = { "https://localhost:9001/callback.html", "https://localhost:9001/refresh.html" },
+                RedirectUris = { "https://localhost:9001/callback.html",
+                    "https://localhost:9001/refresh.html" },
                 PostLogoutRedirectUris = { "https://localhost:9001/index.html" },
                 AllowedScopes =
                 {
@@ -65,6 +66,7 @@ namespace Authorization.IdentityServer
             },
             new Client
             {
+                // имя клиента
                 ClientId = "client_id",
                 ClientSecrets = { new Secret("client_secret".ToSha256()) },
                 // указание типа авторизации
@@ -87,13 +89,19 @@ namespace Authorization.IdentityServer
                 AllowedScopes =
                 {
                     "OrdersAPI",
+                    // "UserAPI",
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile
                 },
 
+                // указание того что с этого адреса будет перенаправление 
+                // на контроллер авторизации сервера авторизации при попытке
+                // достучаться на защищенные маршруты
                 RedirectUris = {"https://localhost:2001/signin-oidc"},
+
                 PostLogoutRedirectUris = {"https://localhost:2001/signout-callback-oidc"},
 
+                // вывод информационной страницы после аутентификации
                 RequireConsent = false,
 
                 AccessTokenLifetime = 5,
@@ -123,6 +131,7 @@ namespace Authorization.IdentityServer
             // субъекта) в токене идентификации.
             yield return new IdentityResources.OpenId();
 
+            // представляет отображаемое имя, адрес электронной почты и утверждение веб-сайта и тд.
             yield return new IdentityResources.Profile();
         }
 

@@ -27,6 +27,7 @@ namespace Authorization.Orders.Api
                     builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
+            // необходим пакет Microsoft.AspNetCore.Authentication.JwtBearer
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, config =>
                 {
@@ -36,8 +37,12 @@ namespace Authorization.Orders.Api
                         ValidateAudience = false
                     };
                     
+                    // адрес сервера аутентификации
                     config.Authority = "https://localhost:10001";
-                    config.Audience = "https://localhost:10001";
+
+                    // указываем кто мы такие (необязательно)
+                    config.Audience = "OrdersAPI";
+                    //config.Audience = "https://localhost:10001";
                 });
 
             services.AddControllersWithViews();
