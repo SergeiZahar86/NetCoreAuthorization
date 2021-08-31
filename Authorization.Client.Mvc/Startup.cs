@@ -18,6 +18,7 @@ namespace Authorization.Client.Mvc
         {
             services.AddAuthentication(config =>
                 {
+                    // используем два типа аутентификации
                     // "Cookies"
                     config.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     // "OpenIdConnect"
@@ -29,12 +30,14 @@ namespace Authorization.Client.Mvc
                 // "OpenIdConnect"
                 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, config =>
                 {
+                    // информация для сервера аутентификации
                     // где будем получать токен (сервер авторизации)
                     config.Authority = "https://localhost:10001";
                     
                     // информация о себе как клиенте
                     config.ClientId = "client_id_mvc";
                     config.ClientSecret = "client_secret_mvc";
+                    // сохраняем токен полученный от серв.аут.
                     config.SaveTokens = true;
                     config.TokenValidationParameters= new TokenValidationParameters
                     {

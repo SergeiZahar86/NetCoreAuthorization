@@ -58,6 +58,14 @@ namespace Authorization.IdentityServer
             // var filePath = Path.Combine(_environment.ContentRootPath, "IdentityServer4_certificate.pfx");
             // var certificate = new X509Certificate2(filePath, "P@55w0rd");
 
+
+
+
+            /*services.AddIdentityServer(option =>
+            {
+                // адрес перенаправления при неудачной аутентификации
+                option.UserInteraction.LoginUrl = "/Auth/Login";
+            })*/
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
                 //.AddConfigurationStore(options =>

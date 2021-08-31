@@ -83,13 +83,13 @@ namespace Authorization.IdentityServer
             {
                 ClientId = "client_id_mvc",
                 ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
-
+                // указание типа авторизации
                 AllowedGrantTypes = GrantTypes.Code,
-
+                // список scopes, разрешённых именно для данного клиентского приложения
                 AllowedScopes =
                 {
+                    // возможность обращаться к OrdersAPI
                     "OrdersAPI",
-                    // "UserAPI",
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile
                 },
@@ -108,6 +108,7 @@ namespace Authorization.IdentityServer
 
                 AllowOfflineAccess = true
 
+                // в IdToken мы включаем из userinfo
                 // AlwaysIncludeUserClaimsInIdToken = true
             }
         };
