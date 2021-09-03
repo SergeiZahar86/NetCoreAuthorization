@@ -13,7 +13,7 @@ namespace Authorization.Swagger.Controllers
 
         [HttpGet("[action]")]
         //[Authorize]
-        [Authorize(Policy = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult GetAll()
         {
             return Ok(_people);

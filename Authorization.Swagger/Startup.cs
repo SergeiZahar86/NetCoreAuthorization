@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,7 @@ namespace Authorization.Swagger
                             TokenUrl = new Uri("https://localhost:10001/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
-                                 {"SwaggerAPI", "Swagger API DEMO"}
+                                // {"SwaggerAPI", "Swagger API DEMO"}
                             }
                         }
                     }
@@ -84,7 +85,13 @@ namespace Authorization.Swagger
                          };
                      });
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", builder =>
+                {
+                    builder.RequireClaim(ClaimTypes.Role, "Administrator1");
+                });
+            });
 
             services.AddControllers();
 

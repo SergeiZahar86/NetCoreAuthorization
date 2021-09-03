@@ -2,6 +2,7 @@
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace Authorization.IdentityServer
 {
@@ -59,10 +60,13 @@ namespace Authorization.IdentityServer
                 AllowedCorsOrigins = { "https://localhost:7001" },
                 AllowedScopes =
                 {
-                    "SwaggerAPI",
+                    "SwaggerAPI", 
                     IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile
-                }
+                    IdentityServerConstants.StandardScopes.Profile,
+                    "roles"
+                },
+                AlwaysIncludeUserClaimsInIdToken = true,
+                UpdateAccessTokenClaimsOnRefresh = true
             },
             new Client
             {
@@ -123,8 +127,17 @@ namespace Authorization.IdentityServer
         /// <returns></returns>
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            yield return new ApiResource("SwaggerAPI");
-            yield return new ApiResource("OrdersAPI");
+            //yield return new ApiResource("SwaggerAPI");
+            //yield return new ApiResource("OrdersAPI");
+            //yield return new ApiResource("roles", "My Roles", new[] { "role", "name" });
+            return new List<ApiResource>
+            {
+                new ApiResource("SwaggerAPI"),
+                new ApiResource("OrdersAPI"),
+                new ApiResource("roles", "My Roles", new[] { "role", "name" }),
+                new ApiResource(LocalApi.ScopeName, "Local Api", new [] { JwtClaimTypes.Role }
+),
+            };
         }
 
         /// <summary> Запрос утверждений (Scopes) о пользователе </summary>
@@ -136,6 +149,12 @@ namespace Authorization.IdentityServer
 
             // представляет отображаемое имя, адрес электронной почты и утверждение веб-сайта и тд.
             yield return new IdentityResources.Profile();
+            yield return new IdentityResource
+            {
+                Name = "roles",
+                DisplayName = "Roles",
+                UserClaims = { JwtClaimTypes.Role }
+            };
         }
 
         /// <summary>
