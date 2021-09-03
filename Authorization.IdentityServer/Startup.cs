@@ -33,8 +33,8 @@ namespace Authorization.IdentityServer
             services.AddDbContext<ApplicationDbContext>(config =>
             {
                 // When using real SQL server
-                //config.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)));
-                config.UseInMemoryDatabase("DEMO_ONLY");
+                config.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)));
+                //config.UseInMemoryDatabase("DEMO_ONLY");
             })
                 .AddIdentity<IdentityUser, IdentityRole>(config =>
                 {

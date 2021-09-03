@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.EntityFramework.DbContexts;
@@ -26,6 +27,7 @@ namespace Authorization.IdentityServer.Data
             {
                 userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Administrator")).GetAwaiter().GetResult();
                 userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Scope, "OrdersAPI")).GetAwaiter().GetResult();
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Scope, "SwaggerAPI")).GetAwaiter().GetResult();
             }
 
             //scopeServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();

@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using Authorization.Client.Mvc.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authentication;
@@ -39,15 +40,17 @@ namespace Authorization.Client.Mvc
                     config.ClientSecret = "client_secret_mvc";
                     // сохраняем токен полученный от серв.аут.
                     config.SaveTokens = true;
-                    config.TokenValidationParameters= new TokenValidationParameters
+                    config.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateAudience = false
+                        ValidateAudience = false,
                     };
                     
                     // способ аутентификации
                     config.ResponseType = "code";
 
                     config.Scope.Add("OrdersAPI");
+
+                    // для работы Refresh Token
                     config.Scope.Add("offline_access");
 
                     config.GetClaimsFromUserInfoEndpoint = true;

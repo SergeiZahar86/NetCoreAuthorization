@@ -55,6 +55,7 @@ namespace Authorization.Client.Mvc.Controllers
             }
             catch (Exception exception)
             {
+                // выдача Refresh Token
                 await RefreshToken(model.RefreshToken);
                 var model2 = new ClaimManager(HttpContext, User);
                 ViewBag.Message = await GetSecretAsync(model2);
@@ -72,7 +73,8 @@ namespace Authorization.Client.Mvc.Controllers
         private async Task RefreshToken(string refreshToken)
         {
             var refreshClient = _httpClientFactory.CreateClient();
-            var resultRefreshTokenAsync = await refreshClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+            var resultRefreshTokenAsync = await refreshClient
+                .RequestRefreshTokenAsync(new RefreshTokenRequest
             {
                 Address = "https://localhost:10001/connect/token",
                 ClientId = "client_id_mvc",

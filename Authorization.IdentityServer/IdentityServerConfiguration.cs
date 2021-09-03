@@ -104,8 +104,10 @@ namespace Authorization.IdentityServer
                 // вывод информационной страницы после аутентификации
                 RequireConsent = false,
 
+                // установка жизни Access Token (секунды)
                 AccessTokenLifetime = 5,
 
+                // для работы Refresh Token
                 AllowOfflineAccess = true
 
                 // в IdToken мы включаем из userinfo

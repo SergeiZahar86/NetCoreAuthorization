@@ -33,7 +33,9 @@ namespace Authorization.Orders.Api
                 {
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
+                        // установка проверки жизни Access Token
                         ClockSkew = TimeSpan.FromSeconds(5),
+
                         ValidateAudience = false
                     };
                     

@@ -12,7 +12,8 @@ namespace Authorization.Swagger.Controllers
         private readonly List<Person> _people = People.GetPeople();
 
         [HttpGet("[action]")]
-        [Authorize]
+        //[Authorize]
+        [Authorize(Policy = "Administrator")]
         public IActionResult GetAll()
         {
             return Ok(_people);
