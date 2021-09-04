@@ -30,8 +30,8 @@ namespace Authorization.IdentityServer
                 {
                     "blazor",
                     "OrdersAPI",
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile
                 }
             },
             new Client
@@ -42,14 +42,16 @@ namespace Authorization.IdentityServer
                 RequirePkce = true,
                 AllowedGrantTypes =  GrantTypes.Code,
                 AllowedCorsOrigins = { "https://localhost:9001" },
-                RedirectUris = { "https://localhost:9001/callback.html",
-                    "https://localhost:9001/refresh.html" },
+                RedirectUris =
+                { "https://localhost:9001/callback.html",
+                    "https://localhost:9001/refresh.html" 
+                },
                 PostLogoutRedirectUris = { "https://localhost:9001/index.html" },
                 AllowedScopes =
                 {
                     "OrdersAPI",
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile
                 }
             },
             new Client
@@ -60,10 +62,10 @@ namespace Authorization.IdentityServer
                 AllowedCorsOrigins = { "https://localhost:7001" },
                 AllowedScopes =
                 {
-                    "SwaggerAPI", 
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile,
-                    "roles"
+                    "SwaggerAPI",
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile,
+                    //"roles"
                 },
                 AlwaysIncludeUserClaimsInIdToken = true,
                 UpdateAccessTokenClaimsOnRefresh = true
@@ -79,8 +81,8 @@ namespace Authorization.IdentityServer
                 AllowedScopes =
                 {
                     "OrdersAPI",
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile
                 }
             },
             new Client
@@ -94,8 +96,8 @@ namespace Authorization.IdentityServer
                 {
                     // возможность обращаться к OrdersAPI
                     "OrdersAPI",
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile
                 },
 
                 // указание того что с этого адреса будет перенаправление 
@@ -134,9 +136,8 @@ namespace Authorization.IdentityServer
             {
                 new ApiResource("SwaggerAPI"),
                 new ApiResource("OrdersAPI"),
-                new ApiResource("roles", "My Roles", new[] { "role", "name" }),
-                new ApiResource(LocalApi.ScopeName, "Local Api", new [] { JwtClaimTypes.Role }
-),
+                //new ApiResource("roles", "My Roles", new[] { "role", "name" }),
+                //new ApiResource(LocalApi.ScopeName, "Local Api", new [] { JwtClaimTypes.Role }),
             };
         }
 
@@ -149,12 +150,12 @@ namespace Authorization.IdentityServer
 
             // представляет отображаемое имя, адрес электронной почты и утверждение веб-сайта и тд.
             yield return new IdentityResources.Profile();
-            yield return new IdentityResource
-            {
-                Name = "roles",
-                DisplayName = "Roles",
-                UserClaims = { JwtClaimTypes.Role }
-            };
+            //yield return new IdentityResource
+            //{
+            //    Name = "roles",
+            //    DisplayName = "Roles",
+            //    UserClaims = { JwtClaimTypes.Role }
+            //};
         }
 
         /// <summary>
