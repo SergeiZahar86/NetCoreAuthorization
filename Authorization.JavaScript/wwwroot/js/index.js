@@ -8,7 +8,9 @@ var settings = {
     authority: "https://localhost:10001",
     client_id: "client_id_js",
     response_type: "code",
-    scope: "openid profile OrdersAPI",
+    scope: "openid profile SwaggerAPI",
+    //scope: "openid profile OrdersAPI",
+
 
     // перенаправление после залогирования
     redirect_uri: "https://localhost:9001/callback.html",
@@ -54,7 +56,8 @@ function callApi() {
         }
 
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://localhost:5001/site/secret");
+        //xhr.open("GET", "https://localhost:5001/site/secret");
+        xhr.open("GET", "https://localhost:7001/Api/GetAll");
         xhr.onload = function () {
             if (xhr.status === 200) {
                 print(xhr.responseText, xhr.response);

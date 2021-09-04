@@ -49,7 +49,8 @@ namespace Authorization.IdentityServer
                 PostLogoutRedirectUris = { "https://localhost:9001/index.html" },
                 AllowedScopes =
                 {
-                    "OrdersAPI",
+                    //"OrdersAPI",
+                    "SwaggerAPI",
                     StandardScopes.OpenId,
                     StandardScopes.Profile
                 }

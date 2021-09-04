@@ -16,6 +16,11 @@ namespace Authorization.Swagger
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(config =>
+            {
+                config.AddPolicy("DefaultPolicy",
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -84,14 +89,14 @@ namespace Authorization.Swagger
                              ValidateAudience = false
                          };
                      });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Administrator", builder =>
-                {
-                    builder.RequireClaim(ClaimTypes.Role, "Administrator1");
-                });
-            });
+            services.AddAuthorization();
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Administrator", builder =>
+            //    {
+            //        builder.RequireClaim(ClaimTypes.Role, "Administrator1");
+            //    });
+            //});
 
             services.AddControllers();
 
@@ -119,6 +124,8 @@ namespace Authorization.Swagger
             });
 
             app.UseRouting();
+            app.UseCors("DefaultPolicy");
+
 
             app.UseAuthentication();
 
