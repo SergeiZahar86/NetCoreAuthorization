@@ -5,7 +5,7 @@ namespace Authorization.IdentityServer.ViewModels
     public class LoginViewModel
     {
         [Required]
-        public string UserName { get; set; } = "User";
+        public string UserName { get; set; } = "admin";
 
         [Required] 
         public string Password { get; set; } = "123qwe";
